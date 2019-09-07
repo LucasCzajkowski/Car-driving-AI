@@ -47,7 +47,7 @@ public class AIdriver : MonoBehaviour
             I = distance;
             CalculateH();
             CalculateO();
-            //print(O);
+            print(O);
             Turn = O;
             //KeyboardStering();
             //SterowanieRandomowe();
