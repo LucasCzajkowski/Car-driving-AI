@@ -9,12 +9,12 @@ public class GENERATOR : MonoBehaviour
     public GameObject CAR;
     public Transform spawnPoint;
     static public GameObject[] carArray;
-    static int nomberOfInstantiatedCars = 10;
+    static public int numberOfInstantiatedCars = 100;
 
     void Start()
     {
         print("Instantiating cars");
-        carArray = InstantiateCars(nomberOfInstantiatedCars);
+        carArray = InstantiateCars(numberOfInstantiatedCars);
     }
 
     void Update()
@@ -31,31 +31,11 @@ public class GENERATOR : MonoBehaviour
             if (AreCarsDead() == true)
             {
                 sortCarArray();
-                MutateAll();
+                MutateAllV3();
                 ResetCarToStart();
             }
-            //print("New W array \n");
-            //carArray[0].GetComponent<AIdriver>().PrintW();
-            //print(carArray[0].GetComponent<AIdriver>().O);
+            
         }
-
-        //if (Input.GetKeyDown(KeyCode.D))
-        //{
-        //    print("Sorting cars by score");
-        //    sortCarArray();
-        //    //PrintArrayDebug();
-        //}
-        //if (Input.GetKeyDown(KeyCode.F))
-        //{
-        //    print("Mutating");
-        //    MutateAll();
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.G))
-        //{
-        //    print("Reseting cars to start");
-        //    ResetCarToStart();
-        //}
 
         if (Input.GetKeyDown(KeyCode.F4))
         {
@@ -64,87 +44,75 @@ public class GENERATOR : MonoBehaviour
         }
     }
 
-    bool AreCarsDead()
+    bool AreCarsDead() // returns tru/false if all cars are alive (did not bumped to walls)
     {
         for (int i = 0; i < carArray.Length; i++)
         {
-           if( carArray[i].GetComponent<AIdriverV3>().isDead == false)
-           {
-               return false;
-               
-           }
-           
+            if (carArray[i].GetComponent<AIdriver>().isDead == false)
+            {
+                return false;
+            }
         }
         return true;
     }
 
-    void KillAllCars()
+    void KillAllCars()// artificially bumps all cars so there are dead
     {
-        for(int i=0; i<carArray.Length; i++)
+        for (int i = 0; i < carArray.Length; i++)
         {
-            carArray[i].GetComponent<AIdriverV3>().isDead = true;
+            carArray[i].GetComponent<AIdriver>().isDead = true;
         }
     }
 
-    public void ResetCarToStart()
+    public void ResetCarToStart()// sets the car at the GENERATOR spawning point
     {
-        for(int i = 0; i< carArray.Length; i++)
+        for (int i = 0; i < carArray.Length; i++)
         {
-            //carArray[i].SetActive(false);
             carArray[i].transform.position = spawnPoint.position;
             carArray[i].transform.rotation = spawnPoint.rotation;
-            //carArray[i].SetActive(true);
-            carArray[i].GetComponent<AIdriverV3>().ResetCar();
+            carArray[i].GetComponent<AIdriver>().ResetCar();
         }
     }
 
-    public  GameObject[] InstantiateCars(int nrOfCars)
+    public GameObject[] InstantiateCars(int nrOfCars)
     {
         GameObject[] CarArray = new GameObject[nrOfCars];
         for (int i = 0; i < nrOfCars; i++)
         {
-            CarArray[i] = Instantiate(CAR, spawnPoint.transform.position, Quaternion.identity);
-
-            CarArray[i].GetComponent<AIdriverV3>().ResetCar();
-            //CarArray[i].GetComponent<AIdriverV3>().SetValuesToArray(GetComponent<AIdriverV3>().weightsArray, Random.Range(-1f, 1f));
+            CarArray[i] = Instantiate(CAR, spawnPoint.transform.position, spawnPoint.transform.rotation);
+            CarArray[i].GetComponent<AIdriver>().ResetCar();
         }
         return CarArray;
     }
 
-    public static void sortCarArray() // sorts car array by car score
+    public static void sortCarArray() // sorts carArray by car score highest 0.. lowest ...n
     {
-        GameObject[] tempcararray = new GameObject[nomberOfInstantiatedCars];
-        tempcararray = carArray.OrderBy(c => -c.GetComponent<AIdriverV3>().score).ToArray();
+        GameObject[] tempcararray = new GameObject[numberOfInstantiatedCars];
+        tempcararray = carArray.OrderBy(c => -c.GetComponent<AIdriver>().score).ToArray();
         carArray = tempcararray;
     }
 
-    public static void PrintArrayDebug()
+    public static void PrintArrayDebug()// for debug purposes prints the sorted car a rray scores
     {
-        print(carArray[0].GetComponent<AIdriver>().score + "\n");
-        print(carArray[1].GetComponent<AIdriver>().score + "\n");
-        print(carArray[2].GetComponent<AIdriver>().score + "\n");
-        print(carArray[3].GetComponent<AIdriver>().score + "\n");
-        print(carArray[4].GetComponent<AIdriver>().score + "\n");
-        print(carArray[5].GetComponent<AIdriver>().score + "\n");
-        print(carArray[6].GetComponent<AIdriver>().score + "\n");
-        print(carArray[7].GetComponent<AIdriver>().score + "\n");
-        print(carArray[8].GetComponent<AIdriver>().score + "\n");
-        print(carArray[9].GetComponent<AIdriver>().score + "\n");
+        for(int i = 0; i<carArray.Length; i++)
+        {
+            print(carArray[i].GetComponent<AIdriver>().score + "\n");
+        }
     }
 
     public float[] Mutate(GameObject X, GameObject Y)// the genetic algorithm 
     {
         float[] masterMindX;
-        X.GetComponent<AIdriverV3>().MakeMasterMindArray();
-        masterMindX = X.GetComponent<AIdriverV3>().MasterMindArray;
+        //X.GetComponent<AIdriver>().Brain.MakeMasterMindArray();
+        masterMindX = X.GetComponent<AIdriver>().Brain.MasterMindArray;
 
         float[] masterMindY;
-        Y.GetComponent<AIdriverV3>().MakeMasterMindArray();
-        masterMindY = Y.GetComponent<AIdriverV3>().MasterMindArray;
+        //Y.GetComponent<AIdriver>().Brain.MakeMasterMindArray();
+        masterMindY = Y.GetComponent<AIdriver>().Brain.MasterMindArray;
 
         float[] tempDifferenceArray = new float[masterMindX.Length]; // X - Y
 
-        for(int i=0; i<masterMindX.Length; i++)
+        for (int i = 0; i < masterMindX.Length; i++)
         {
             tempDifferenceArray[i] = Mathf.Abs(masterMindX[i] - masterMindY[i]);
         }
@@ -179,26 +147,67 @@ public class GENERATOR : MonoBehaviour
         float[] tempMindArray1 = new float[22];// lenght of mastermind array
         float[] tempMindArray2 = new float[22];// lenght of mastermind array
         float[] tempMindArray3 = new float[22];// lenght of mastermind array
-       
+
 
         tempMindArray0 = Mutate(carArray[0], carArray[1]);
         tempMindArray1 = Mutate(carArray[1], carArray[2]);
         tempMindArray2 = Mutate(carArray[2], carArray[3]);
         tempMindArray3 = Mutate(carArray[3], carArray[4]);
 
-        carArray[1].GetComponent<AIdriverV3>().ReadWeightAndBiasFromArray(tempMindArray0);
-        carArray[2].GetComponent<AIdriverV3>().ReadWeightAndBiasFromArray(tempMindArray1);
-        carArray[3].GetComponent<AIdriverV3>().ReadWeightAndBiasFromArray(tempMindArray2);
-        carArray[4].GetComponent<AIdriverV3>().ReadWeightAndBiasFromArray(tempMindArray3);
+        carArray[1].GetComponent<AIdriver>().Brain.ReadWeightAndBiasFromArray(tempMindArray0);
+        carArray[2].GetComponent<AIdriver>().Brain.ReadWeightAndBiasFromArray(tempMindArray1);
+        carArray[3].GetComponent<AIdriver>().Brain.ReadWeightAndBiasFromArray(tempMindArray2);
+        carArray[4].GetComponent<AIdriver>().Brain.ReadWeightAndBiasFromArray(tempMindArray3);
 
-        carArray[5].GetComponent<AIdriverV3>().RandomizeWeights(-1f,1f);
-        carArray[6].GetComponent<AIdriverV3>().RandomizeWeights(-1f,1f);
-        carArray[7].GetComponent<AIdriverV3>().RandomizeWeights(-1f,1f);
-        carArray[8].GetComponent<AIdriverV3>().RandomizeWeights(-1f,1f);
-        carArray[9].GetComponent<AIdriverV3>().RandomizeWeights(-1f, 1f);
+        carArray[5].GetComponent<AIdriver>().Brain.RandomizeWeightsArray();
+        carArray[6].GetComponent<AIdriver>().Brain.RandomizeWeightsArray();
+        carArray[7].GetComponent<AIdriver>().Brain.RandomizeWeightsArray();
+        carArray[8].GetComponent<AIdriver>().Brain.RandomizeWeightsArray();
+        carArray[9].GetComponent<AIdriver>().Brain.RandomizeWeightsArray();
 
 
 
+    }
+
+    public float[] MutateAllV2(GameObject[] inputArray)
+    {
+        float[] outputArray = new float[inputArray.Length];
+        float mutateAmmount = 1 / (inputArray.Length - 2);
+
+        for (int i = 1; i < inputArray.Length - 1; i++)// because we wont change the best score car and we will not change the car with the lowest score we will randomize it later
+        {
+            float[] tempMastermindArray = inputArray[i].GetComponent<AIdriver>().Brain.MasterMindArray;
+            for (int j = 0; j < tempMastermindArray.Length; j++)
+            {
+                tempMastermindArray[j] += Random.Range(-tempMastermindArray[j] * mutateAmmount, tempMastermindArray[j] * mutateAmmount);
+            }
+            inputArray[i].GetComponent<AIdriver>().Brain.ReadWeightAndBiasFromArray(tempMastermindArray); // loads the mutated mastermind array to car brain
+            mutateAmmount++;
+        }
+
+        inputArray[inputArray.Length - 1].GetComponent<AIdriver>().Brain.RandomizeWeightsArray(); // randomizes the car with the lowest score (last car)
+
+        return outputArray;
+    }
+
+    public void MutateAllV3()
+    {
+        int currentCar = 0;
+        
+        
+
+        for(int i = 1; i<carArray.Length; i++)
+        {
+            if (currentCar < carArray.Length)
+            {
+                carArray[i].GetComponent<AIdriver>().Brain.ReadWeightAndBiasFromArray( Mutate(carArray[currentCar], carArray[currentCar+1]));
+                currentCar += 2;
+            }
+            else
+            {
+                carArray[i].GetComponent<AIdriver>().Brain.RandomizeWeightsArray();
+            }
+        }
     }
 
 }

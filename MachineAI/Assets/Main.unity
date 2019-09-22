@@ -489,71 +489,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 254825258}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &281333313 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5390187028772856764, guid: f0655fb76042b7043bbed78e2e2a073c,
-    type: 3}
-  m_PrefabInstance: {fileID: 5390187028491562493}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &281333319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 281333313}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e2bd936c4ab35e49832a9954a6a296d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weightsArray:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  MasterMindArray:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  ForwardSpeed: 5
-  TurnSpeed: 2
-  Turn: 0
-  score: 0
-  isDead: 0
 --- !u!1 &304450011
 GameObject:
   m_ObjectHideFlags: 0
@@ -2042,8 +1977,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1150809749}
-  - component: {fileID: 1150809748}
-  - component: {fileID: 1150809750}
+  - component: {fileID: 1150809751}
   m_Layer: 0
   m_Name: GENERATOR
   m_TagString: Untagged
@@ -2051,20 +1985,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1150809748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1150809747}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 321c3b41b9e76a14b8c573b1c0aa4d68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CAR: {fileID: 5390187028772856764, guid: f0655fb76042b7043bbed78e2e2a073c, type: 3}
-  spawnPoint: {fileID: 833665308}
 --- !u!4 &1150809749
 Transform:
   m_ObjectHideFlags: 0
@@ -2079,7 +1999,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1150809750
+--- !u!114 &1150809751
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2088,7 +2008,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1150809747}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 604b750c27b8ff248b3ffe7920f6f2f5, type: 3}
+  m_Script: {fileID: 11500000, guid: f11cee5e5156983479d3514216403a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CAR: {fileID: 5390187028772856764, guid: f0655fb76042b7043bbed78e2e2a073c, type: 3}

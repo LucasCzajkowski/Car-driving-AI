@@ -9,12 +9,12 @@ public class GENERATORV2 : MonoBehaviour
     public GameObject CAR;
     public Transform spawnPoint;
     static public GameObject[] carArray;
-    static int nomberOfInstantiatedCars = 10;
+    static int numberOfInstantiatedCars = 10;
 
     void Start()
     {
         print("Instantiating cars");
-        carArray = InstantiateCars(nomberOfInstantiatedCars);
+        carArray = InstantiateCars(numberOfInstantiatedCars);
     }
 
     void Update()
@@ -68,7 +68,7 @@ public class GENERATORV2 : MonoBehaviour
     {
         for (int i = 0; i < carArray.Length; i++)
         {
-           if( carArray[i].GetComponent<AIdriverV4>().isDead == false)
+           if( carArray[i].GetComponent<AIdriver>().isDead == false)
            {
                return false;
            }
@@ -80,7 +80,7 @@ public class GENERATORV2 : MonoBehaviour
     {
         for(int i=0; i<carArray.Length; i++)
         {
-            carArray[i].GetComponent<AIdriverV4>().isDead = true;
+            carArray[i].GetComponent<AIdriver>().isDead = true;
         }
     }
 
@@ -92,7 +92,7 @@ public class GENERATORV2 : MonoBehaviour
             carArray[i].transform.position = spawnPoint.position;
             carArray[i].transform.rotation = spawnPoint.rotation;
             //carArray[i].SetActive(true);
-            carArray[i].GetComponent<AIdriverV4>().ResetCar();
+            carArray[i].GetComponent<AIdriver>().ResetCar();
         }
     }
 
@@ -103,16 +103,16 @@ public class GENERATORV2 : MonoBehaviour
         {
             CarArray[i] = Instantiate(CAR, spawnPoint.transform.position, Quaternion.identity);
 
-            CarArray[i].GetComponent<AIdriverV4>().ResetCar();
-            //CarArray[i].GetComponent<AIdriverV4>().SetValuesToArray(GetComponent<AIdriverV4>().weightsArray, Random.Range(-1f, 1f));
+            CarArray[i].GetComponent<AIdriver>().ResetCar();
+            //CarArray[i].GetComponent<AIdriver>().SetValuesToArray(GetComponent<AIdriver>().weightsArray, Random.Range(-1f, 1f));
         }
         return CarArray;
     }
 
     public static void sortCarArray() // sorts car array by car score
     {
-        GameObject[] tempcararray = new GameObject[nomberOfInstantiatedCars];
-        tempcararray = carArray.OrderBy(c => -c.GetComponent<AIdriverV4>().score).ToArray();
+        GameObject[] tempcararray = new GameObject[numberOfInstantiatedCars];
+        tempcararray = carArray.OrderBy(c => -c.GetComponent<AIdriver>().score).ToArray();
         carArray = tempcararray;
     }
 
@@ -133,12 +133,12 @@ public class GENERATORV2 : MonoBehaviour
     public float[] Mutate(GameObject X, GameObject Y)// the genetic algorithm 
     {
         float[] masterMindX;
-        X.GetComponent<AIdriverV4>().Brain.MakeMasterMindArray();
-        masterMindX = X.GetComponent<AIdriverV4>().Brain.MasterMindArray;
+        X.GetComponent<AIdriver>().Brain.MakeMasterMindArray();
+        masterMindX = X.GetComponent<AIdriver>().Brain.MasterMindArray;
 
         float[] masterMindY;
-        Y.GetComponent<AIdriverV4>().Brain.MakeMasterMindArray();
-        masterMindY = Y.GetComponent<AIdriverV4>().Brain.MasterMindArray;
+        Y.GetComponent<AIdriver>().Brain.MakeMasterMindArray();
+        masterMindY = Y.GetComponent<AIdriver>().Brain.MasterMindArray;
 
         float[] tempDifferenceArray = new float[masterMindX.Length]; // X - Y
 
@@ -184,16 +184,16 @@ public class GENERATORV2 : MonoBehaviour
         tempMindArray2 = Mutate(carArray[2], carArray[3]);
         tempMindArray3 = Mutate(carArray[3], carArray[4]);
 
-        carArray[1].GetComponent<AIdriverV4>().Brain.ReadWeightAndBiasFromArray(tempMindArray0);
-        carArray[2].GetComponent<AIdriverV4>().Brain.ReadWeightAndBiasFromArray(tempMindArray1);
-        carArray[3].GetComponent<AIdriverV4>().Brain.ReadWeightAndBiasFromArray(tempMindArray2);
-        carArray[4].GetComponent<AIdriverV4>().Brain.ReadWeightAndBiasFromArray(tempMindArray3);
+        carArray[1].GetComponent<AIdriver>().Brain.ReadWeightAndBiasFromArray(tempMindArray0);
+        carArray[2].GetComponent<AIdriver>().Brain.ReadWeightAndBiasFromArray(tempMindArray1);
+        carArray[3].GetComponent<AIdriver>().Brain.ReadWeightAndBiasFromArray(tempMindArray2);
+        carArray[4].GetComponent<AIdriver>().Brain.ReadWeightAndBiasFromArray(tempMindArray3);
 
-        carArray[5].GetComponent<AIdriverV4>().Brain.RandomizeWeightsArray();
-        carArray[6].GetComponent<AIdriverV4>().Brain.RandomizeWeightsArray();
-        carArray[7].GetComponent<AIdriverV4>().Brain.RandomizeWeightsArray();
-        carArray[8].GetComponent<AIdriverV4>().Brain.RandomizeWeightsArray();
-        carArray[9].GetComponent<AIdriverV4>().Brain.RandomizeWeightsArray();
+        carArray[5].GetComponent<AIdriver>().Brain.RandomizeWeightsArray();
+        carArray[6].GetComponent<AIdriver>().Brain.RandomizeWeightsArray();
+        carArray[7].GetComponent<AIdriver>().Brain.RandomizeWeightsArray();
+        carArray[8].GetComponent<AIdriver>().Brain.RandomizeWeightsArray();
+        carArray[9].GetComponent<AIdriver>().Brain.RandomizeWeightsArray();
 
 
 
