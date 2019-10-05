@@ -368,7 +368,6 @@ GameObject:
   - component: {fileID: 672991057}
   - component: {fileID: 672991056}
   - component: {fileID: 672991059}
-  - component: {fileID: 672991060}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -454,65 +453,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
---- !u!114 &672991060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 672991055}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e2bd936c4ab35e49832a9954a6a296d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weightsArray:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  MasterMindArray:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  ForwardSpeed: 5
-  TurnSpeed: 2
-  Turn: 0
-  score: 0
-  isDead: 0
 --- !u!1001 &717766018
 PrefabInstance:
   m_ObjectHideFlags: 0
