@@ -84,7 +84,10 @@ MonoBehaviour:
   weightsList: []
   biasList: []
   MasterMindList: []
+  inputNodesArray: []
   hiddenLayersCount: 
+  outputNodesArray: []
+  activationFunctionType: 0
 --- !u!114 &281333315
 MonoBehaviour:
   m_ObjectHideFlags: 0

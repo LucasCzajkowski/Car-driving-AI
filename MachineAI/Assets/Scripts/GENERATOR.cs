@@ -9,7 +9,7 @@ public class GENERATOR : MonoBehaviour
     public GameObject CAR;
     public Transform spawnPoint;
     static public GameObject[] carArray;
-    static public int numberOfInstantiatedCars = 100;
+    public static int numberOfInstantiatedCars = 100; // make shure this value is dividable
 
     void Start()
     {

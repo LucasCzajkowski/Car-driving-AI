@@ -60,7 +60,8 @@ public class AIdriver : MonoBehaviour
             transform.Translate(Vector3.forward * Time.deltaTime * ForwardSpeed);// this line moves the car forward 
             if(!float.IsNaN(Brain.OutputNodesArray[0] * TurnSpeed)) // sometimes brain output is NaN when the neural net is not initialized complitly 
             {
-                transform.Rotate(0f, Brain.OutputNodesArray[0] * TurnSpeed, 0f); // this line turns the car based on the neural net output node
+                //print("Turn ammount: "+Brain.OutputNodesArray[0]);
+                transform.Rotate(0f, ((2*Brain.OutputNodesArray[0])-1) * TurnSpeed, 0f); // this line turns the car based on the neural net output node. Becouse the output of the net is in range of 0 to 1 it is needed to apply the function "y=2x-1" to have the output in range -1,1 for the rar rotation
             }
 
             Brain.MakeMasterMindArray();
