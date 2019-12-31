@@ -33,3 +33,5 @@ Brain.CalcuateNeuralNetwork();
 Genetic algorithm:
 Each car has a score that consists of the sum of the distance calculated from each of the car sensors for each frame. The cars ar then put into an array sorted from the highest to the lowest score. 
 The algorithm mutates the weights and bias nodes of the low scor cars so they resemble the best score cars.
+
+You can see it in action at: https://www.youtube.com/watch?v=GppaZ00be2s
